@@ -5,6 +5,7 @@
     - [x] Design System Architecture
     - [x] Design Database Schema
     - [x] Create Implementation Plan
+    - [x] Create Insomnia API Documentation
 - [x] UI/UX Design (In Progress)
     - [x] Generate Admin Dashboard Mockups
     - [x] Generate Citizen App Complaint Form Mockup
