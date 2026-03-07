@@ -67,10 +67,10 @@ graph TD
 ## UI/UX Design Mockups
 
 ### Admin Dashboard (Executive Overview)
-![Admin Dashboard Mockup](./docs/admin_dashboard_mockup_1772889541184.png)
+![Admin Dashboard Mockup](./admin_dashboard_mockup_1772889541184.png)
 
 ### Citizen App (LBS & GPS Form)
-![Citizen App Mockup](./docs/citizen_app_complaint_form_mockup_1772889557150.png)
+![Citizen App Mockup](./citizen_app_complaint_form_mockup_1772889557150.png)
 
 ## API Design (Implemented Endpoints)
 
