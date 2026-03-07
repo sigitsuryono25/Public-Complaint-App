@@ -1,0 +1,81 @@
+# Public Complaint App (Aplikasi Pengaduan Masyarakat)
+
+This document outlines the technical plan for building a robust public complaint system with real-time tracking, GPS integration, and automated escalation to government agencies (SKPD).
+
+## System Architecture
+
+The application will consist of three main components:
+1. **Mobile Citizen App**: For citizens to report issues with LBS/GPS and track status.
+2. **Web Admin Dashboard**: For administrators and SKPD staff to manage and process reports.
+3. **Backend API**: The central nervous system handling business logic, notifications, and data storage.
+
+```mermaid
+graph TD
+    CitizenApp[Mobile Citizen App] -->|HTTPS/REST| API[Backend API]
+    AdminWeb[Web Admin Dashboard] -->|HTTPS/REST| API
+    API -->|Read/Write| DB[(PostgreSQL)]
+    API -->|Send Notifications| FCM[Firebase Cloud Messaging]
+    FCM -->|Push Notif| CitizenApp
+    FCM -->|Push Notif| AdminWeb
+    API -->|Geocoding/Maps| GMap[Google Maps API V3]
+```
+
+## Features & Implementation Strategy
+
+### 1. Implementasi LBS & GPS
+- **Citizen App**: Use `expo-location` (React Native) to capture latitude and longitude automatically when the user opens the "Kirim Pengaduan" form.
+- **Backend**: Store coordinates as a `Geography` type in PostgreSQL (using PostGIS) for efficient spatial queries.
+
+### 2. Integrasi Google Maps API V3
+- **Admin Dashboard**: Embed Google Maps to visualize complaint locations.
+- **Features**: Heatmaps for complaint density and markers for individual reports.
+
+### 3. Kirim Pengaduan (Send Complaints)
+- **Form Fields**: Category (Road, Trash, etc.), Description, Photo Attachment, and Location.
+- **File Storage**: Use AWS S3 or Supabase Storage for complaint images.
+
+### 4. Notifikasi Real-time (FCM)
+- **Triggers**:
+    - New Complaint -> Notify Admin & relevant SKPD.
+    - Status Update -> Notify Citizen.
+- **Service**: Firebase Cloud Messaging (FCM) for cross-platform push notifications.
+
+### 5. Manajemen SKPD
+- **Logic**: Each complaint category is linked to a specific SKPD (Dinas Pekerjaan Umum, Dinas Lingkungan Hidup, etc.).
+- **Escalation**: Reports can be manually forwarded by an Admin if the auto-link is incorrect.
+
+### 6. Dashboard Admin (Web-based)
+- **Role-based Access**: Super Admin (Total control), SKPD Staff (Only relevant reports).
+- **Functionality**: View metrics, generate reports (PDF/Excel), and update handling status.
+
+### 7. Tracking Status
+- **Status Workflow**: `Submitted` -> `Verified` -> `In Progress` -> `Resolved` -> `Closed`.
+- **History**: Each complaint will have a history log of status changes and notes.
+
+## Proposed Database Schema (Relational)
+
+### `users`
+- `id`, `name`, `email`, `role` (CITIZEN, ADMIN, SKPD_STAFF), `fcm_token`
+
+### `skpd` (Satuan Kerja Perangkat Daerah)
+- `id`, `name`, `description`, `category_id`
+
+### `categories`
+- `id`, `name` (e.g., Infrastruktur, Kebersihan)
+
+### `complaints`
+- `id`, `citizen_id`, `category_id`, `skpd_id`, `title`, `description`, `photo_url`, `latitude`, `longitude`, `status`, `created_at`
+
+### `complaint_logs`
+- `id`, `complaint_id`, `status_from`, `status_to`, `notes`, `created_at`
+
+## Verification Plan
+
+### Automated Tests
+- Integration tests for the "Kirim Pengaduan" API flow.
+- Mock FCM service to verify notification triggers.
+- Unit tests for SKPD assignment logic.
+
+### Manual Verification
+- Test GPS coordinate accuracy on physical mobile devices.
+- Verify Google Map markers alignment with captured coordinates in the Admin Dashboard.

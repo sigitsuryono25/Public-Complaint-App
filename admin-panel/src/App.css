@@ -1,0 +1,5 @@
+/* Default Vite styles removed to favor custom design system */
+#root {
+  width: 100%;
+  min-height: 100vh;
+}

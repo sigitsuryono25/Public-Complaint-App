@@ -1,0 +1,35 @@
+# Public Complaint App Planning
+
+- [x] Initial Research and Planning
+    - [x] Create task.md
+    - [x] Design System Architecture
+    - [x] Design Database Schema
+    - [x] Create Implementation Plan
+- [x] UI/UX Design (In Progress)
+    - [x] Generate Admin Dashboard Mockups
+    - [x] Generate Citizen App Complaint Form Mockup
+    - [x] Design Tracking Status UI
+- [x] Backend & API Design
+    - [x] Map API Endpoints for Complaints
+    - [x] Design Notification Logic Flow
+    - [x] SKPD Routing Logic Specification
+- [/] Admin Web Implementation (In Progress)
+    - [x] Initialize React Project with Vite
+    - [x] Setup Routing & Layout
+    - [ ] Integrate Google Maps SDK
+    - [x] Build Dashboard Overview
+    - [x] Implement SKPD & Category Management
+    - [x] Implement Complaint Details & Status Tracking
+- [/] Backend Implementation (In Progress)
+    - [x] Initialize Node.js/Express Project
+    - [x] Setup Basic Middleware & Router
+    - [x] Define Database Models (Sequelize/Prisma)
+    - [ ] Implement Auth Logic (optional initial)
+    - [x] Implement Complaint Submission API
+- [/] Citizen App Implementation (Android Native)
+    - [x] Initialize Kotlin Project
+    - [x] Setup ViewBinding & Themes
+    - [x] Add Location & Maps Permissions
+    - [ ] Implement "Kirim Laporan" Form
+    - [ ] Integrate GPS Real-time Tracking
+- [ ] Verification and Testing (Future)
