@@ -18,13 +18,15 @@
     - [x] Setup Routing & Layout
     - [ ] Integrate Google Maps SDK
     - [x] Build Dashboard Overview
+    - [x] Implement Admin Login Page
+    - [x] Secure Protected Routes (JWT Interceptors)
     - [x] Implement SKPD & Category Management
     - [x] Implement Complaint Details & Status Tracking
 - [/] Backend Implementation (In Progress)
     - [x] Initialize Node.js/Express Project
     - [x] Setup Basic Middleware & Router
     - [x] Define Database Models (Sequelize/Prisma)
-    - [ ] Implement Auth Logic (optional initial)
+    - [x] Implement Auth Logic (JWT & Bcrypt)
     - [x] Implement Complaint Submission API
 - [/] Citizen App Implementation (Android Native)
     - [x] Initialize Kotlin Project

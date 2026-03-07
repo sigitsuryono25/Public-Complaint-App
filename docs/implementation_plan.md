@@ -51,23 +51,26 @@ graph TD
 - **Workload Balance**: Admin can see how many active reports each SKPD is currently handling.
 
 ### 6. Dashboard Admin (Web-based)
-- **Status**: Core layout and data fetching implemented.
+- **Status**: Secure Management Suite Implemented.
 - **Layout**: Sidebar navigation, Top bar with summary stats (Live data from Backend).
+- **Authentication**: Secure Login page with JWT token management and auto-interceptor.
+- **Protected Routes**: Navigation strictly enforced for authenticated Admin roles.
 - **Map View**: Integrated with dashboard overview (placeholder for Google Maps JS SDK).
-- **Complaints Management**: Full table view with status filtering implemented.
-- **API Integration**: Axios services created for all complaint and admin actions.
+- **Complaints Management**: Full table view with status filtering, detail views, and tracking logs.
+- **SKPD/Category Management**: Interactive modules to manage government entities and complaint types.
+- **API Integration**: Centralized Axios service layer for all backend interactions.
 
 ### 7. Tracking Status
-- **Progress Bar**: Visual indicator of the complaint status.
-- **Comments/Feedback**: Citizen can reply to SKPD updates for clarifications.
+- **Status Log Timeline**: Automated capture of every state transition in the complaint lifecycle.
+- **Progress Visibility**: Clear visual indicators of "Old Status → New Status" with handling notes.
 
 ## UI/UX Design Mockups
 
-### Admin Dashboard (Google Maps Integration)
-![Admin Dashboard Mockup](./admin_dashboard_mockup_1772889541184.png)
+### Admin Dashboard (Executive Overview)
+![Admin Dashboard Mockup](./docs/admin_dashboard_mockup_1772889541184.png)
 
 ### Citizen App (LBS & GPS Form)
-![Citizen App Mockup](./citizen_app_complaint_form_mockup_1772889557150.png)
+![Citizen App Mockup](./docs/citizen_app_complaint_form_mockup_1772889557150.png)
 
 ## API Design (Implemented Endpoints)
 
@@ -83,7 +86,8 @@ graph TD
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
 | `POST` | `/api/users/register` | Register a new user (Citizen/Admin/SKPD). |
-| `GET` | `/api/users` | List all registered users. |
+| `POST` | `/api/users/login` | Secure authentication with email and password. |
+| `GET` | `/api/users` | List all registered users (Excludes passwords). |
 
 ### Admin & SKPD Management
 | Method | Endpoint | Description |
@@ -96,7 +100,7 @@ graph TD
 ## Implemented Database Schema (Relational)
 
 ### `users`
-- `id`, `name`, `email`, `role` (CITIZEN, ADMIN, SKPD_STAFF), `fcm_token`
+- `id`, `name`, `email`, `password` (Hashed), `role` (CITIZEN, ADMIN, SKPD_STAFF), `fcm_token`
 
 ### `skpd` (Satuan Kerja Perangkat Daerah)
 - `id`, `name`, `description`, `category_id`
@@ -113,9 +117,9 @@ graph TD
 ### Backend API (Node.js/Express)
 - **Framework**: Express.js with a modular Controller-Route pattern.
 - **ORM**: Sequelize (PostgreSQL) with automatic schema synchronization.
-- **Security**: Helmet, CORS integration.
+- **Security**: JWT Authentication, Bcrypt hashing, Helmet, CORS integration.
 - **Logging**: Morgan ('dev' format) for request monitoring.
-- **Seeder**: `seed.js` included for rapid environment setup with mock data.
+- **Seeder**: `seed.js` included for rapid environment setup with mock data (including secure passwords).
 
 ## Verification Plan
 
