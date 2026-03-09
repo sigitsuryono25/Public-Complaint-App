@@ -34,6 +34,19 @@ Create an environment in Insomnia with the following variables:
   "fcm_token": "token_placeholder"
 }
 ```
+- **Response (201)**:
+```json
+{
+  "success": true,
+  "data": {
+    "id": "uuid-here",
+    "name": "Jane Citizen",
+    "email": "jane@example.com",
+    "role": "CITIZEN",
+    "token": "eyJhbGci..."
+  }
+}
+```
 
 ### 2. Login
 - **Method**: `POST`
@@ -45,13 +58,38 @@ Create an environment in Insomnia with the following variables:
   "password": "admin123"
 }
 ```
-*Copy the `token` from the response and update your `jwt_token` environment variable.*
+- **Response (200)**:
+```json
+{
+  "success": true,
+  "data": {
+    "id": "uuid-here",
+    "name": "Admin User",
+    "email": "admin@test.com",
+    "role": "ADMIN",
+    "token": "eyJhbGci..."
+  }
+}
+```
+> ⚠️ The token is nested inside `data.token`. Copy the value and update your `jwt_token` environment variable.
+
+### 3. Get All Users
+- **Method**: `GET`
+- **URL**: `{{ base_url }}/users`
+- **Auth**: `Bearer {{ jwt_token }}`
+- **Response (200)**:
+```json
+{
+  "success": true,
+  "data": [{ "id": "...", "name": "...", "email": "...", "role": "..." }]
+}
+```
 
 ---
 
 ## 📢 Complaint Management
 
-### 3. Submit Complaint
+### 4. Submit Complaint
 - **Method**: `POST`
 - **URL**: `{{ base_url }}/complaints`
 - **Auth**: `Bearer {{ jwt_token }}`
@@ -67,21 +105,75 @@ Create an environment in Insomnia with the following variables:
   "longitude": 106.8272
 }
 ```
+- **Response (201)**:
+```json
+{
+  "success": true,
+  "data": { "id": "...", "title": "...", "status": "SUBMITTED", "..." : "..." }
+}
+```
 
-### 4. Fetch All Complaints
+### 5. Fetch All Complaints
 - **Method**: `GET`
 - **URL**: `{{ base_url }}/complaints`
-- **Params**:
-  - `status`: `SUBMITTED`, `VERIFIED`, `IN_PROGRESS`, etc. (Optional)
-  - `category_id`: UUID (Optional)
+- **Auth**: `Bearer {{ jwt_token }}`
+- **Query Params (all optional)**:
+  - `status`: `SUBMITTED`, `VERIFIED`, `IN_PROGRESS`, `RESOLVED`, `REJECTED`
+  - `skpd_id`: UUID
+  - `category_id`: UUID
+- **Response (200)**:
+```json
+{
+  "success": true,
+  "count": 5,
+  "data": [
+    {
+      "id": "...",
+      "title": "...",
+      "description": "...",
+      "status": "SUBMITTED",
+      "photo_url": null,
+      "latitude": -6.1754,
+      "longitude": 106.8272,
+      "created_at": "2024-03-09T00:00:00.000Z",
+      "Category": { "name": "Infrastructure" },
+      "SKPD": { "name": "Dinas PU" },
+      "Citizen": { "name": "Jane", "email": "jane@example.com" }
+    }
+  ]
+}
+```
 
-### 5. Get Complaint Details
+### 6. Get Complaint Details
 - **Method**: `GET`
-- **URL**: `{{ base_url }}/complaints/{{ id }}`
+- **URL**: `{{ base_url }}/complaints/:id`
+- **Auth**: `Bearer {{ jwt_token }}`
+- **Response (200)**:
+```json
+{
+  "success": true,
+  "data": {
+    "id": "...",
+    "title": "...",
+    "status": "...",
+    "Category": { "name": "..." },
+    "SKPD": { "name": "..." },
+    "Citizen": { "name": "...", "email": "..." },
+    "ComplaintLogs": [
+      {
+        "status_from": null,
+        "status_to": "SUBMITTED",
+        "notes": "Initial submission",
+        "created_at": "..."
+      }
+    ]
+  }
+}
+```
 
-### 6. Update Status & Assign SKPD
+### 7. Update Status & Assign SKPD
 - **Method**: `PATCH`
-- **URL**: `{{ base_url }}/complaints/{{ id }}/status`
+- **URL**: `{{ base_url }}/complaints/:id/status`
 - **Auth**: `Bearer {{ jwt_token }}`
 - **Body (JSON)**:
 ```json
@@ -91,16 +183,30 @@ Create an environment in Insomnia with the following variables:
   "skpd_id": "SKPD_UUID_HERE"
 }
 ```
+- **Response (200)**:
+```json
+{
+  "success": true,
+  "data": { "id": "...", "status": "VERIFIED", "..." : "..." }
+}
+```
 
 ---
 
 ## 🏛️ Admin Settings
 
-### 7. List Categories
+### 8. List Categories
 - **Method**: `GET`
 - **URL**: `{{ base_url }}/admin/categories`
+- **Response (200)**:
+```json
+{
+  "success": true,
+  "data": [{ "id": "...", "name": "Infrastructure", "SKPD": { "name": "..." } }]
+}
+```
 
-### 8. Create Category
+### 9. Create Category
 - **Method**: `POST`
 - **URL**: `{{ base_url }}/admin/categories`
 - **Body (JSON)**:
@@ -109,12 +215,26 @@ Create an environment in Insomnia with the following variables:
   "name": "Public Transport"
 }
 ```
+- **Response (201)**:
+```json
+{
+  "success": true,
+  "data": { "id": "...", "name": "Public Transport" }
+}
+```
 
-### 9. List SKPDs
+### 10. List SKPDs
 - **Method**: `GET`
 - **URL**: `{{ base_url }}/admin/skpds`
+- **Response (200)**:
+```json
+{
+  "success": true,
+  "data": [{ "id": "...", "name": "Dinas Perhubungan", "Categories": [] }]
+}
+```
 
-### 10. Register SKPD
+### 11. Create SKPD
 - **Method**: `POST`
 - **URL**: `{{ base_url }}/admin/skpds`
 - **Body (JSON)**:
@@ -122,6 +242,13 @@ Create an environment in Insomnia with the following variables:
 {
   "name": "Dinas Perhubungan",
   "category_id": "CATEGORY_UUID"
+}
+```
+- **Response (201)**:
+```json
+{
+  "success": true,
+  "data": { "id": "...", "name": "Dinas Perhubungan" }
 }
 ```
 
@@ -134,7 +261,17 @@ Create an environment in Insomnia with the following variables:
 | `200` | Success |
 | `201` | Created Successfully |
 | `400` | Bad Request (Validation Error) |
-| `401` | Unauthorized (Invalid Token) |
+| `401` | Unauthorized (Invalid / Missing Token) |
 | `403` | Forbidden (Not an Admin) |
 | `404` | Resource Not Found |
 | `500` | Internal Server Error |
+
+---
+
+## 📌 Key Notes
+
+- **All responses** follow the envelope `{ "success": boolean, "data": ... }` pattern.
+- **Login & Register token** is located at `response.data.token`, **not** at `response.token`.
+- **Complaint list response** includes a top-level `count` field alongside the `data` array.
+- **Complaint details** include a nested `ComplaintLogs` array for full audit trail history.
+- The `Citizen`, `Category`, and `SKPD` fields in complaint responses are **Sequelize association aliases** (capitalized).
