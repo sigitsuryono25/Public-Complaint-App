@@ -30,9 +30,12 @@
     - [x] Implement Auth Logic (JWT & Bcrypt)
     - [x] Implement Complaint Submission API
 - [/] Citizen App Implementation (Android Native)
-    - [x] Initialize Kotlin Project
-    - [x] Setup ViewBinding & Themes
+    - [x] Initialize Kotlin Project (Gradle 8.5)
+    - [x] Setup Koin Dependency Injection
+    - [x] Implement API Layer (Retrofit + Repository)
+    - [x] Implement Citizen Login & Session Management
+    - [x] Build Complaint List UI (RecyclerView)
+    - [x] Implement "Kirim Laporan" Form
     - [x] Add Location & Maps Permissions
-    - [ ] Implement "Kirim Laporan" Form
     - [ ] Integrate GPS Real-time Tracking
 - [ ] Verification and Testing (Future)

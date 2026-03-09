@@ -25,21 +25,8 @@ The system is composed of three main modules:
 
 - **Backend**: Node.js, Express.js, PostgreSQL, Sequelize ORM, JWT, Bcrypt.
 - **Admin Web**: React.js, Vite, Axios, Lucide-React, Vanilla CSS (Premium Dark Mode).
-- **Mobile**: Kotlin (Android Native), Google Maps SDK, Fused Location Provider.
+- **Mobile**: Kotlin (Android Native), Koin DI, Retrofit, Coroutines, Google Maps SDK.
 - **Design**: Executive Glassmorphism, Dynamic Transitions, Responsive Layouts.
-
----
-
-## 📂 Project Structure
-
-```text
-.
-├── admin-panel/        # React + Vite Frontend
-├── backend/            # Express.js API
-├── mobile-android/     # Android Native (Kotlin) Mobile App
-├── docs/               # Technical Documentation & Task Tracking
-└── README.md           # You are here
-```
 
 ---
 
@@ -53,42 +40,28 @@ The system is composed of three main modules:
 ### 2. Backend Setup
 1. Navigate to `/backend`.
 2. Install dependencies: `npm install`.
-3. Create a `.env` file based on the provided template:
-   ```env
-   PORT=5001
-   DB_HOST=localhost
-   DB_USER=your_user
-   DB_PASS=your_password
-   DB_NAME=public_complaint
-   JWT_SECRET=your_secret_key
-   ```
-4. Run the data seeder to populate test data (Admin & Complaints):
-   ```bash
-   node seed.js
-   ```
-5. Start development server:
-   ```bash
-   npm run dev
-   ```
+3. Create a `.env` file based on the provided template.
+4. Run the data seeder: `node seed.js`.
+5. Start server: `npm run dev`.
 
 ### 3. Admin Panel Setup
 1. Navigate to `/admin-panel`.
 2. Install dependencies: `npm install`.
-3. Start the Vite dev server:
-   ```bash
-   npm run dev
-   ```
-4. **Login Credentials** (After seeding):
-   - **Email**: `admin@test.com`
-   - **Password**: `admin123`
+3. Start Vite: `npm run dev`.
+
+### 4. Mobile App Setup
+1. Open `/mobile-android` in **Android Studio**.
+2. Allow Gradle sync (Uses Gradle 8.5).
+3. Run the app using the `Debug` configuration.
+4. **API URL**: The app is pre-configured to connect to `http://10.0.2.2:5001/api/` (Host localhost access from Android Emulator).
 
 ---
 
 ## 🛡️ Features Implemented
 
-- [x] **Secure Authentication**: JWT-based login for Admins.
+- [x] **Secure Authentication**: JWT-based login for Admins & Citizens.
+- [x] **Mobile Interface**: Premium Android UI with Koin DI & MVVM.
 - [x] **Real-time Stats**: Dashboard overview with live database counts.
-- [x] **SKPD Management**: Department registration and categorical mapping.
 - [x] **Complaint Tracking**: Full lifecycle management with history logs.
 - [x] **LBS Integration**: Coordinate capturing and verification endpoints.
 - [x] **Premium UI**: Glassmorphism effect with custom-curated color palettes.

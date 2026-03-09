@@ -7,12 +7,14 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".PublicComplaintApp"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher_foreground"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_launcher_foreground"
         android:supportsRtl="true"
-        android:theme="@style/Theme.PublicComplaint">
+        android:theme="@style/Theme.PublicComplaint"
+        android:usesCleartextTraffic="true">
 
         <!-- Google Maps API Key -->
         <meta-data
@@ -20,13 +22,27 @@
             android:value="YOUR_GOOGLE_MAPS_API_KEY" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.complaint.ComplaintListActivity"
+            android:exported="false"
+            android:label="Daftar Pengaduan" />
+
+        <activity
+            android:name=".ui.complaint.SubmitComplaintActivity"
+            android:exported="false"
+            android:label="Kirim Laporan" />
     </application>
 
 </manifest>

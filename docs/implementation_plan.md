@@ -33,6 +33,8 @@ graph TD
     - **Marker Info**: Click marker to see complaint summary and direct link to details.
     - **Route Visualization**: Show distance/route from closest SKPD to the complaint location (optional feature).
 
+
+
 ### 3. Kirim Pengaduan (Send Complaints)
 - **Multi-step Form**:
     - Step 1: Category & Title.
@@ -120,6 +122,15 @@ graph TD
 - **Security**: JWT Authentication, Bcrypt hashing, Helmet, CORS integration.
 - **Logging**: Morgan ('dev' format) for request monitoring.
 - **Seeder**: `seed.js` included for rapid environment setup with mock data (including secure passwords).
+
+### Citizen App (Mobile Native)
+- **Status**: Core authentication, session management, and complaint submission implemented.
+- **Framework**: Kotlin (Android Native) with ViewBinding.
+- **DI Container**: Koin (Koin-Android 3.4.0) for repository and ViewModel injection.
+- **Network**: Retrofit 2.9.0 with OkHttp & Logging Interceptor.
+- **Session**: Secure SharedPreferences (SessionManager) for JWT persistence.
+- **Architecture**: MVVM (Model-View-ViewModel) with Coroutines for async tasks.
+- **Branding**: Custom premium theme (Slate & Brand Blue) matching the Admin dashboard.
 
 ## Verification Plan
 
