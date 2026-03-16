@@ -29,6 +29,8 @@
     - [x] Define Database Models (Sequelize/Prisma)
     - [x] Implement Auth Logic (JWT & Bcrypt)
     - [x] Implement Complaint Submission API
+    - [ ] Protect complaint and admin routes with JWT middleware
+    - [ ] Restrict complaint detail/list access by citizen ownership or authorized staff role
 - [/] Citizen App Implementation (Android Native)
     - [x] Initialize Kotlin Project (Gradle 8.5)
     - [x] Setup Koin Dependency Injection
@@ -37,5 +39,15 @@
     - [x] Build Complaint List UI (RecyclerView)
     - [x] Implement "Kirim Laporan" Form
     - [x] Add Location & Maps Permissions
+    - [ ] Build complaint detail screen from complaint list
+    - [ ] Render citizen status timeline from `ComplaintLog`
+    - [ ] Show assigned SKPD, notes, timestamps, location, and attached photo
+    - [ ] Handle empty states for optional complaint fields
     - [ ] Integrate GPS Real-time Tracking
+- [ ] Notifications and Citizen Follow-up (Next Phase)
+    - [ ] Add status change push notifications or in-app inbox
 - [ ] Verification and Testing (Future)
+    - [ ] Verify citizen can open complaint details from Android list
+    - [ ] Verify timeline ordering from `SUBMITTED` through later status updates
+    - [ ] Verify complaint detail screen handles optional data cleanly
+    - [ ] Verify unauthorized users cannot access other users' complaints
